@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>一款基于JQuery的简单手写轮播图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .carousel {
+            width: 400px;
+            margin-top: 60px;
+            box-shadow: 10px 10px 5px #888888;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carouselp {
+            width: 2000px;
+            height: 400px;
+        }
+        
+        button {
+            width: 100px;
+            height: 40px;
+            background-color: blue;
+            border: 1px solid blue;
+            color: aliceblue;
+            cursor: pointer;
+            margin-top: 60px;
+        }
+        
+        .carousel01,
+        .carousel02,
+        .carousel03,
+        .carousel04,
+        .carousel05 {
+            width: 400px;
+            height: 400px;
+            float: left;
+        }
+        
+        .carousel span {
+            position: absolute;
+            top: 350px;
+            left: 150px;
+        }
+        
+        .arrow1 {
+            position: absolute;
+            top: 180px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        
+        .arrow2 {
+            position: absolute;
+            left: 300px;
+            top: 180px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+        
+        .arrow1:hover {
+            opacity: 1;
+        }
+        
+        .arrow2:hover {
+            opacity: 1;
+        }
+        
+        .images1,
+        .images2,
+        .images3,
+        .images4,
+        .images5 {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel">
+        <img class="arrow1" src="img/arrow1.png">
+        <img class="arrow2" src="img/arrow2.png">
+        <span><img class="images1"  src="img/icon_star_yes.png"><img class="images2" src="img/icon_star_no.png"><img class="images3" src="img/icon_star_no.png"><img class="images4" src="img/icon_star_no.png"><img class="images5" src="img/icon_star_no.png"></span>
+        <div class="carouselp">
+            <img class="carousel01" src="img/index.jpg">
+            <img class="carousel02" src="img/index1.jpg">
+            <img class="carousel03" src="img/index2.jpg">
+            <img class="carousel04" src="img/index3.jpg">
+            <img class="carousel05" src="img/index4.jpg">
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function() {
+            //每5000执行一次函数
+            setInterval(slippingleft, 5000);
+            setInterval(stars, 5000);
+            // stars();
+        })
+        //左右图标的点击事件
+    var a = 0;
+    $(".arrow1").click(function() {
+        slippingright();
+        stars()
+    });
+    $(".arrow2").click(function() {
+
+        slippingleft();
+        stars()
+    });
+    //小圆点的点击事件
+    $(".images1").click(function() {
+        a = '1';
+        slippingleft();
+        stars();
+
+    });
+    $(".images2").click(function() {
+        a = '0';
+        slippingleft();
+        stars();
+
+    });
+    $(".images3").click(function() {
+        a = '-1';
+        slippingleft();
+        stars();
+
+    });
+    $(".images4").click(function() {
+        a = '-2';
+        slippingleft();
+        stars();
+
+    });
+    $(".images5").click(function() {
+        a = '-3';
+        slippingleft();
+        stars();
+
+    });
+    //封装点击事件
+    function slippingleft() {
+        if (a > -4) {
+            a--;
+            var goLeft = a * 400;
+            $(".carouselp").animate({
+                marginLeft: "" + goLeft + "px"
+            });
+        }
+        // changecolor();
+        console.log(a);
+        if (a == '-4') {
+            a = 1;
+
+        }
+    }
+
+    function slippingright() {
+        if (a < 0) {
+            a++;
+            var goLeft = a * 400;
+            $(".carouselp").animate({
+                marginLeft: "" + goLeft + "px"
+            });
+        }
+        // changecolor();
+        console.log(a);
+    }
+    //封装星星的样式
+    function stars() {
+        if (a == '0') {
+            $(".images1").attr("src", "img/icon_star_yes.png");
+            $(".images1").siblings().attr("src", "img/icon_star_no.png");
+        } else if (a == '-1') {
+            $(".images2").attr("src", "img/icon_star_yes.png");
+            $(".images2").siblings().attr("src", "img/icon_star_no.png");
+        } else if (a == '-2') {
+            $(".images3").attr("src", "img/icon_star_yes.png");
+            $(".images3").siblings().attr("src", "img/icon_star_no.png");
+        } else if (a == '-3') {
+            $(".images4").attr("src", "img/icon_star_yes.png");
+            $(".images4").siblings().attr("src", "img/icon_star_no.png");
+        } else if (a == '1') {
+            $(".images5").attr("src", "img/icon_star_yes.png");
+            $(".images5").siblings().attr("src", "img/icon_star_no.png");
+        }
+    }
+</script>
+
+</html>
